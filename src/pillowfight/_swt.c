@@ -593,6 +593,8 @@ static int browse_adjacencies(struct swt_adjacencies *adjs,
 
 	pf_dbl_matrix_free(&visited);
 
+	free(stack);
+
 	return nb_group;
 }
 
