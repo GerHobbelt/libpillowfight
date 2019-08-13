@@ -17,5 +17,5 @@ test:
   script:
     - apt-get update
     - apt-get install -y -q make
-    - apt-get install -y -q python3-pil build-essential gcc tox
+    - apt-get install -y -q python3-pil python3-dev build-essential gcc tox
     - make test
