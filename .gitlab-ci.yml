@@ -14,6 +14,7 @@ test:
   tags:
     - linux
     - volatile
+    - x86
   script:
     - apt-get update
     - apt-get install -y -q make
