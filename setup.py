@@ -36,9 +36,9 @@ setup(
                       " Automatic Color Equalization, Unpaper's algorithms,"
                       " Stroke Width Transformation, etc"),
     keywords="image processing algorithm pillow pil",
-    url="https://github.com/openpaperwork/libpillowfight#readme",
+    url="https://gitlab.gnome.org/World/OpenPaperwork/libpillowfight#readme",
     download_url=(
-        "https://github.com/openpaperwork/libpillowfight/archive/"
+        "https://gitlab.gnome.org/World/OpenPaperwork/libpillowfight/archive/"
         "{}.zip".format(version)
     ),
     classifiers=[
