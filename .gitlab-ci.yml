@@ -1,6 +1,8 @@
 image: debian:stable-slim
 
 check:
+  only:
+    - branches@gitlab-gnome-org/World/OpenPaperwork
   tags:
     - linux
     - volatile
@@ -11,6 +13,8 @@ check:
     - make check
 
 test:
+  only:
+    - branches@gitlab-gnome-org/World/OpenPaperwork
   tags:
     - linux
     - volatile
