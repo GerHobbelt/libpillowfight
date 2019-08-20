@@ -2,7 +2,7 @@ image: debian:stable-slim
 
 check:
   only:
-    - branches@gitlab-gnome-org/World/OpenPaperwork
+    - branches@gitlab-gnome-org/World/OpenPaperwork/libpillowfight
   tags:
     - linux
     - volatile
@@ -14,7 +14,7 @@ check:
 
 test:
   only:
-    - branches@gitlab-gnome-org/World/OpenPaperwork
+    - branches@gitlab-gnome-org/World/OpenPaperwork/libpillowfight
   tags:
     - linux
     - volatile
