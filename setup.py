@@ -10,7 +10,7 @@ if os.name == "nt":
     libdep = []
     extra_compile_args = []
 else:
-    libdep = ["m"]
+    libdep = ["m", "pthread"]
     if platform.processor() == "i386":
         extra_compile_args = ['-msse2', '-mfpmath=sse']
     else:

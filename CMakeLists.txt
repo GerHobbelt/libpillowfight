@@ -23,8 +23,12 @@ add_library(pillowfight SHARED
     src/pillowfight/util.c
 )
 
-install (TARGETS pillowfight DESTINATION ${LIBDIR})
-install (FILES
+if (UNIX)
+    target_link_libraries(pillowfight m pthread)
+endif (UNIX)
+
+install(TARGETS pillowfight DESTINATION ${LIBDIR})
+install(FILES
     include/pillowfight/pillowfight.h
     include/pillowfight/util.h
     DESTINATION
