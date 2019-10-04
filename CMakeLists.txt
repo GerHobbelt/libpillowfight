@@ -9,6 +9,7 @@ include_directories(include)
 
 add_library(pillowfight SHARED
     src/pillowfight/_ace.c
+    src/pillowfight/_scanborder.c
     src/pillowfight/_blackfilter.c
     src/pillowfight/_blurfilter.c
     src/pillowfight/_border.c

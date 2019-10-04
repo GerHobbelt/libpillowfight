@@ -77,18 +77,6 @@
 #define PF_COUNT_OF(x) (sizeof(x) / sizeof(x[0]))
 
 
-struct pf_rectangle {
-	struct {
-		int x;
-		int y;
-	} a;
-	struct {
-		int x;
-		int y;
-	} b;
-};
-
-
 extern const union pf_pixel g_pf_default_white_pixel;
 
 

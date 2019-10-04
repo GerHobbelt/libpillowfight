@@ -42,6 +42,17 @@ struct pf_bitmap {
 	union pf_pixel *pixels;
 };
 
+struct pf_point {
+	int x;
+	int y;
+};
+
+struct pf_rectangle {
+	struct pf_point a;
+	struct pf_point b;
+};
+
+
 /*!
  * \returns a uint32_t (RGBA)
  */
@@ -156,6 +167,8 @@ extern void pf_unpaper_grayfilter(const struct pf_bitmap *in, struct pf_bitmap *
 extern void pf_unpaper_masks(const struct pf_bitmap *in, struct pf_bitmap *out);
 
 extern void pf_unpaper_noisefilter(const struct pf_bitmap *in, struct pf_bitmap *out);
+
+extern struct pf_rectangle pf_find_scan_border(const struct pf_bitmap *img_in);
 
 /*!
  * \brief return Libpillowfight version

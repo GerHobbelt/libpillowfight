@@ -275,6 +275,17 @@ def swt(img_in, output_type=SWT_OUTPUT_BW_TEXT):
     ).convert("RGB")
 
 
+def find_scan_border(img_in):
+    has_alpha = "A" in img_in.mode
+    if img_in.mode != "RGBA":
+        img_in = img_in.convert("RGBA")  # Add alpha to align on 32bits
+    return _clib.find_scan_border(
+        img_in.size[0],
+        img_in.size[1],
+        img_in.tobytes()
+    )
+
+
 def get_version():
     return _clib.get_version()
 
