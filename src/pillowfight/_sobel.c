@@ -99,7 +99,8 @@ const struct pf_dbl_matrix g_pf_kernel_scharr_y = {
  * \param[in] b matrix
  */
 static struct pf_dbl_matrix compute_intensity_matrix(
-		struct pf_dbl_matrix *matrix_a, const struct pf_dbl_matrix *matrix_b
+		struct pf_dbl_matrix *matrix_a, const struct pf_dbl_matrix *matrix_b,
+		int kernel_size_x, int kernel_size_y
 	)
 {
 	int x, y;
@@ -114,9 +115,13 @@ static struct pf_dbl_matrix compute_intensity_matrix(
 
 	for (x = 0 ; x < matrix_a->size.x ; x++) {
 		for (y = 0 ; y < matrix_a->size.y ; y++) {
-			a = PF_MATRIX_GET(matrix_a, x, y);
-			b = PF_MATRIX_GET(matrix_b, x, y);
-			dist = hypot(a, b);
+			if (x < kernel_size_x || y < kernel_size_y) {
+				dist = 0;
+			} else {
+				a = PF_MATRIX_GET(matrix_a, x, y);
+				b = PF_MATRIX_GET(matrix_b, x, y);
+				dist = hypot(a, b);
+			}
 			PF_MATRIX_SET(&out, x, y, dist);
 		}
 	}
@@ -172,7 +177,10 @@ struct pf_gradient_matrixes pf_sobel_on_matrix(const struct pf_dbl_matrix *in,
 		memcpy(&out.g_y, &g_out, sizeof(out.g_y));
 	}
 
-	out.intensity = compute_intensity_matrix(&out.g_x, &out.g_y);
+	out.intensity = compute_intensity_matrix(
+		&out.g_x, &out.g_y,
+		kernel_x->size.x, kernel_x->size.y
+	);
 	out.direction = compute_direction_matrix(&out.g_x, &out.g_y);
 
 	return out;
@@ -193,7 +201,11 @@ void pf_sobel(const struct pf_bitmap *in_img, struct pf_bitmap *out_img)
 	g_horizontal = pf_dbl_matrix_convolution(&in, PF_SOBEL_DEFAULT_KERNEL_X);
 	g_vertical = pf_dbl_matrix_convolution(&in, PF_SOBEL_DEFAULT_KERNEL_Y);
 
-	intensity = compute_intensity_matrix(&g_horizontal, &g_vertical);
+	intensity = compute_intensity_matrix(
+		&g_horizontal, &g_vertical,
+		PF_SOBEL_DEFAULT_KERNEL_X->size.x,
+		PF_SOBEL_DEFAULT_KERNEL_X->size.y
+	);
 
 	pf_dbl_matrix_free(&g_horizontal);
 	pf_dbl_matrix_free(&g_vertical);
