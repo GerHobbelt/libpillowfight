@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 
 project(libpillowfight)
 set(CMAKE_BUILD_TYPE Release)
-set(LIBDIR lib CACHE STRING "object code libraries directory")
+set(CMAKE_INSTALL_LIBDIR lib CACHE STRING "object code libraries directory")
 
 add_definitions(-DNO_PYTHON)
 include_directories(include)
@@ -29,7 +29,7 @@ if (UNIX)
     target_link_libraries(pillowfight m pthread)
 endif (UNIX)
 
-install(TARGETS pillowfight DESTINATION ${LIBDIR})
+install(TARGETS pillowfight DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES
     include/pillowfight/pillowfight.h
     include/pillowfight/util.h
