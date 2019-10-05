@@ -27,8 +27,10 @@ Available algorithms are listed below.
 * Gaussian blur
 * ACE (Automatic Color Equalization ; Parallelized implementation)
 * SWT (Stroke Width Transformation)
-* Compare : Compare two images (grayscale) and makes the pixels that are different
+* Compare: Compare two images (grayscale) and makes the pixels that are different
   really visible (red).
+* Scan borders: Tries to detect the borders of a page in an image coming from
+  a scanner.
 
 
 ## Python API
@@ -208,6 +210,63 @@ You *should* call ```srand()``` before calling this function.
 * "A new algorithm for unsupervised global and local color correction." - A. Rizzi, C. Gatta and D. Marini
 * http://argmax.jp/index.php?colorcorrect
 
+
+### Scan border
+
+This algorithm tries to find page borders in a scanned image. It is designed
+to operate on images coming from a flatbed scanner or a scanner with an
+automatic document feeder.
+
+This algorithms looks for horizontal and vertical lines, and return the
+smallest rectangle that includes all those lines. To get the lines, it runs
+the Sobel operator on the input image and only keep the points with
+an angle of [0°, 90°, 180°, 270°] ±5°.
+
+This algorithm does not always work:
+- It's quite sensible to noise: dust, hair, etc may easily be counted
+  erroneously as lines.
+- Some scanners or drivers (most of Brother scanners for instance) "clean up"
+  the image before returning it. Unfortunately they often remove most of the
+  page borders in the process.
+
+Still, this algorithm can help users of GUI applications by pre-selecting
+cropping areas.
+
+
+| Input | Output |
+| ----- | ------ |
+| [brother_mfc7360n](https://gitlab.gnome.org/World/OpenPaperwork/libpillowfight/raw/master/tests/data/brother_mfc7360.jpeg) | (56, 8, 1637, 2275) |
+| [epson_xp425](https://gitlab.gnome.org/World/OpenPaperwork/libpillowfight/raw/master/tests/data/epson_xp425) | (4, 5, 2484, 3498) |
+| [brother_ds620](https://gitlab.gnome.org/World/OpenPaperwork/libpillowfight/raw/master/tests/data/brother_ds620.jpeg) | (3, 3, 2507, 3527) |
+
+#### Python API
+
+```py
+frame = pillowfight.find_scan_border(img_in)
+```
+
+
+#### C API
+
+```C
+struct pf_point {
+	int x;
+	int y;
+};
+
+struct pf_rectangle {
+	struct pf_point a;
+	struct pf_point b;
+};
+
+struct pf_rectangle pf_find_scan_border(const struct pf_bitmap *img_in);
+```
+
+
+#### Sources
+
+* ["Detecting Text in Natural Scenes with Stroke Width Transform"](http://cmp.felk.cvut.cz/~cernyad2/TextCaptchaPdf/Detecting%20Text%20in%20Natural%20Scenes%20with%20Stroke%20Width%20Transform.pdf) - Boris Epshtein, Eyal Ofek, Yonatan Wexler
+* https://github.com/aperrau/DetectText
 
 ### Canny's edge detection
 
