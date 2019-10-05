@@ -12,10 +12,10 @@ def scanborder(img_in, img_out):
     img_in = PIL.Image.open(img_in)
 
     img = img_in.copy()
-    img = pillowfight.unpaper_blackfilter(img)
-    img = pillowfight.unpaper_noisefilter(img)
-    img = pillowfight.unpaper_blurfilter(img)
-    img = pillowfight.unpaper_masks(img)
+    # img = pillowfight.unpaper_blackfilter(img)
+    # img = pillowfight.unpaper_noisefilter(img)
+    # img = pillowfight.unpaper_blurfilter(img)
+    # img = pillowfight.unpaper_masks(img)
 
     frame = pillowfight.find_scan_border(img)
 
