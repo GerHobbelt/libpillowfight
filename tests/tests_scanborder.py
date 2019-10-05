@@ -1,5 +1,3 @@
-import math
-import tempfile
 import unittest
 
 import PIL.Image

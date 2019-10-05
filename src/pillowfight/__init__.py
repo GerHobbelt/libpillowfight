@@ -276,7 +276,6 @@ def swt(img_in, output_type=SWT_OUTPUT_BW_TEXT):
 
 
 def find_scan_border(img_in):
-    has_alpha = "A" in img_in.mode
     if img_in.mode != "RGBA":
         img_in = img_in.convert("RGBA")  # Add alpha to align on 32bits
     return _clib.find_scan_border(
