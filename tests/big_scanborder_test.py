@@ -42,12 +42,13 @@ def scanborder(img_in):
 
 
 def main():
-    max_report_id = int(sys.argv[1])
-    out_dir = sys.argv[2]
+    min_report_id = int(sys.argv[1])
+    max_report_id = int(sys.argv[2])
+    out_dir = sys.argv[3]
 
     os.makedirs(out_dir, exist_ok=True)
 
-    for report_id in range(10, max_report_id + 1):
+    for report_id in range(min_report_id, max_report_id + 1):
         print("")
         scan = SCAN_URL_FMT.format(id=report_id)
         print(f"Downloading {scan} ...")
