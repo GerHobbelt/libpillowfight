@@ -23,7 +23,7 @@ add_library(pillowfight SHARED
     src/pillowfight/_version.c
     src/pillowfight/util.c
 )
-set_property(TARGET pillowfight PROPERTY SOVERSION 0.2.4)
+set_property(TARGET pillowfight PROPERTY SOVERSION 0)
 
 if (UNIX)
     target_link_libraries(pillowfight m pthread)
