@@ -57,6 +57,8 @@ def find_scan_borders(report_id, img_in, total):
 
 
 def main():
+    global count
+
     in_dir = sys.argv[1]
     out_dir = sys.argv[2]
 
@@ -66,36 +68,41 @@ def main():
         multiprocessing.cpu_count()
     )
 
-    imgs = []
-
     print("Loading ...")
-    for scan in os.listdir(in_dir):
-        if not scan.startswith("in_"):
-            continue
-        report_id = int(scan[len("in_"):-len(".jpeg")])
+    all_files = list(os.listdir(in_dir))
 
-        img_in = PIL.Image.open(os.path.join(in_dir, scan))
-        imgs.append((report_id, img_in))
+    for x in range(0, len(all_files), 64):
+        imgs = []
 
-    print("Processing ...")
-    imgs = pool.map(
-        lambda args: find_scan_borders(args[0], args[1], len(imgs)),
-        imgs
-    )
+        for scan in all_files[x:x + 64]:
+            if not scan.startswith("in_"):
+                continue
+            report_id = int(scan[len("in_"):-len(".jpeg")])
 
-    print("Writing ...")
-    for (report_id, img_in, img_out) in imgs:
-        assembly = [img_in, img_out]
-        (widths, heights) = zip(*(i.size for i in assembly))
-        total_width = sum(widths)
-        max_height = max(heights)
+            img_in = PIL.Image.open(os.path.join(in_dir, scan))
+            imgs.append((report_id, img_in))
 
-        img = PIL.Image.new('RGB', (total_width, max_height))
-        x_offset = 0
-        for i in assembly:
-            img.paste(i, (x_offset, 0))
-            x_offset += i.size[0]
-        img.save(os.path.join(out_dir, f"out_{report_id}.jpeg"))
+        print("Processing ...")
+        imgs = pool.map(
+            lambda args: find_scan_borders(args[0], args[1], len(all_files)),
+            imgs
+        )
+
+        print()
+        print("Writing ...")
+        for (report_id, img_in, img_out) in imgs:
+            assembly = [img_in, img_out]
+            (widths, heights) = zip(*(i.size for i in assembly))
+            total_width = sum(widths)
+            max_height = max(heights)
+
+            img = PIL.Image.new('RGB', (total_width, max_height))
+            x_offset = 0
+            for i in assembly:
+                img.paste(i, (x_offset, 0))
+                x_offset += i.size[0]
+            img.save(os.path.join(out_dir, f"out_{report_id}.jpeg"))
+
     print("Done")
 
 
