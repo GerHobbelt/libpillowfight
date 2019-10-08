@@ -36,16 +36,19 @@
 
 /*!
  * \brief Algorithm to detect page borders on a scanned image.
+ *
+ * Looks for horizontal and vertical lines.
  */
 
 static void filter_angles(
 		struct pf_dbl_matrix *matrix_intensity,
-		const struct pf_dbl_matrix *matrix_direction
+		const struct pf_dbl_matrix *matrix_direction,
+		double target_angle
 	)
 {
 	int x, y;
 	int intensity;
-	double angle;
+	double angle, angle_diff;
 
 	assert(matrix_intensity->size.x == matrix_direction->size.x);
 	assert(matrix_intensity->size.y == matrix_direction->size.y);
@@ -53,30 +56,31 @@ static void filter_angles(
 	for (x = 0 ; x < matrix_intensity->size.x ; x++) {
 		for (y = 0 ; y < matrix_intensity->size.y ; y++) {
 
-			angle = PF_MATRIX_GET(matrix_direction, x, y);
 			intensity = PF_MATRIX_GET(matrix_intensity, x, y);
-
-			angle = fmod(fabs(angle), M_PI / 2);
 
 			if (intensity <= MIN_INTENSITY_A) {
 				PF_MATRIX_SET(matrix_intensity, x, y, 0);
 				continue;
 			}
 
-			if (angle <= ANGLE_TOLERANCE) {
-				PF_MATRIX_SET(
-					matrix_intensity, x, y, 255
-				);
+			angle = PF_MATRIX_GET(matrix_direction, x, y);
+			angle_diff = (
+				fmod(
+					(angle - target_angle + (M_PI / 2) + M_PI),
+					M_PI
+				) - (M_PI / 2)
+			);
+
+			if (angle_diff < -1  * ANGLE_TOLERANCE) {
+				PF_MATRIX_SET(matrix_intensity, x, y, 0);
 				continue;
 			}
-			if (angle >= ((M_PI / 2) - ANGLE_TOLERANCE)) {
-				PF_MATRIX_SET(
-					matrix_intensity, x, y, 255
-				);
+			if (angle_diff > ANGLE_TOLERANCE) {
+				PF_MATRIX_SET(matrix_intensity, x, y, 0);
 				continue;
 			}
 
-			PF_MATRIX_SET(matrix_intensity, x, y, 0);
+			PF_MATRIX_SET(matrix_intensity, x, y, 255);
 		}
 	}
 }
@@ -102,12 +106,15 @@ static void filter_intensities(struct pf_dbl_matrix *matrix_intensity)
 }
 
 
-static struct pf_rectangle find_shape(struct pf_dbl_matrix *matrix_intensity)
+static struct pf_rectangle find_shape(
+		const struct pf_dbl_matrix *intensity_x,
+		const struct pf_dbl_matrix *intensity_y
+	)
 {
 	struct pf_rectangle rect = {
 		.a = {
-			.x = matrix_intensity->size.x,
-			.y = matrix_intensity->size.y,
+			.x = intensity_x->size.x,
+			.y = intensity_x->size.y,
 		},
 		.b = {
 			.x = 0,
@@ -117,16 +124,19 @@ static struct pf_rectangle find_shape(struct pf_dbl_matrix *matrix_intensity)
 
 	int x, y, intensity;
 
-	for (x = 0 ; x < matrix_intensity->size.x ; x++) {
-		for (y = 0 ; y < matrix_intensity->size.y ; y++) {
-			intensity = PF_MATRIX_GET(matrix_intensity, x, y);
-			if (!intensity) {
-				continue;
+	for (x = 0 ; x < intensity_x->size.x ; x++) {
+		for (y = 0 ; y < intensity_x->size.y ; y++) {
+			intensity = PF_MATRIX_GET(intensity_x, x, y);
+			if (intensity != 0) {
+				rect.a.x = MIN(rect.a.x, x);
+				rect.b.x = MAX(rect.b.x, x);
 			}
-			rect.a.x = MIN(rect.a.x, x);
-			rect.a.y = MIN(rect.a.y, y);
-			rect.b.x = MAX(rect.b.x, x);
-			rect.b.y = MAX(rect.b.y, y);
+
+			intensity = PF_MATRIX_GET(intensity_y, x, y);
+			if (intensity != 0) {
+				rect.a.y = MIN(rect.a.y, y);
+				rect.b.y = MAX(rect.b.y, y);
+			}
 		}
 	}
 
@@ -140,7 +150,8 @@ static
 struct pf_rectangle pf_find_scan_border(const struct pf_bitmap *img_in)
 {
 	struct pf_gradient_matrixes gradient;
-	struct pf_dbl_matrix in, out;
+	struct pf_dbl_matrix x, y, xg, yg;
+	struct pf_dbl_matrix in;
 	struct pf_rectangle rect;
 
 	in = pf_dbl_matrix_new(img_in->size.x, img_in->size.y);
@@ -159,16 +170,24 @@ struct pf_rectangle pf_find_scan_border(const struct pf_bitmap *img_in)
 	pf_dbl_matrix_free(&gradient.g_y);
 
 	// keep horizontals and verticals only
-	filter_angles(&gradient.intensity, &gradient.direction);
+	x = pf_dbl_matrix_copy(&gradient.intensity);
+	y = pf_dbl_matrix_copy(&gradient.intensity);
+	pf_dbl_matrix_free(&gradient.intensity);
+	filter_angles(&x, &gradient.direction, 0);
+	filter_angles(&y, &gradient.direction, M_PI / 2);
 	pf_dbl_matrix_free(&gradient.direction);
 
-	out = pf_gaussian_on_matrix(&gradient.intensity, 2.0, 5);
-	pf_dbl_matrix_free(&gradient.intensity);
+	xg = pf_gaussian_on_matrix(&x, 1.0, 3);
+	yg = pf_gaussian_on_matrix(&y, 1.0, 3);
+	pf_dbl_matrix_free(&x);
+	pf_dbl_matrix_free(&y);
 
-	filter_intensities(&out);
+	filter_intensities(&xg);
+	filter_intensities(&yg);
 
-	rect = find_shape(&out);
-	pf_dbl_matrix_free(&out);
+	rect = find_shape(&xg, &yg);
+	pf_dbl_matrix_free(&xg);
+	pf_dbl_matrix_free(&yg);
 
 	return rect;
 }
