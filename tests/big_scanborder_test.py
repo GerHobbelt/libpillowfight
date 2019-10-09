@@ -3,8 +3,6 @@
 import multiprocessing.pool
 import os
 import sys
-import urllib.error
-import urllib.request
 
 import PIL.Image
 import PIL.ImageDraw
@@ -16,6 +14,7 @@ SCAN_URL_FMT = "https://openpaper.work/scannerdb/report/{id}/scanned.png"
 
 
 count = 0
+
 
 def _find_scan_borders(img_in):
     img_in = img_in.copy()
