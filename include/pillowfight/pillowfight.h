@@ -168,7 +168,7 @@ extern void pf_unpaper_masks(const struct pf_bitmap *in, struct pf_bitmap *out);
 
 extern void pf_unpaper_noisefilter(const struct pf_bitmap *in, struct pf_bitmap *out);
 
-extern struct pf_rectangle pf_find_scan_border(const struct pf_bitmap *img_in);
+extern struct pf_rectangle pf_find_scan_borders(const struct pf_bitmap *img_in);
 
 /*!
  * \brief return Libpillowfight version

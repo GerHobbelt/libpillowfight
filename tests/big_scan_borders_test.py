@@ -18,7 +18,7 @@ count = 0
 
 def _find_scan_borders(img_in):
     img_in = img_in.copy()
-    frame = pillowfight.find_scan_border(img_in)
+    frame = pillowfight.find_scan_borders(img_in)
 
     draw = PIL.ImageDraw.Draw(img_in)
     draw.rectangle(

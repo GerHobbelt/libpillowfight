@@ -8,7 +8,7 @@ static PyMethodDef clib_methods[] = {
 	{"compare", pycompare, METH_VARARGS, NULL},
 	{"gaussian", pygaussian, METH_VARARGS, NULL},
 	{"get_version", pyget_version, METH_NOARGS, NULL},
-	{"find_scan_border", pyfind_scan_border, METH_VARARGS, NULL},
+	{"find_scan_borders", pyfind_scan_borders, METH_VARARGS, NULL},
 	{"sobel", pysobel, METH_VARARGS, NULL},
 	{"swt", pyswt, METH_VARARGS, NULL},
 	{"unpaper_blackfilter", pyblackfilter, METH_VARARGS, NULL},

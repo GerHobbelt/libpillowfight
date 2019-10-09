@@ -147,7 +147,7 @@ static struct pf_rectangle find_shape(
 #ifndef NO_PYTHON
 static
 #endif
-struct pf_rectangle pf_find_scan_border(const struct pf_bitmap *img_in)
+struct pf_rectangle pf_find_scan_borders(const struct pf_bitmap *img_in)
 {
 	struct pf_gradient_matrixes gradient;
 	struct pf_dbl_matrix x, y, xg, yg;
@@ -194,7 +194,7 @@ struct pf_rectangle pf_find_scan_border(const struct pf_bitmap *img_in)
 
 
 #ifndef NO_PYTHON
-PyObject *pyfind_scan_border(PyObject *self, PyObject* args)
+PyObject *pyfind_scan_borders(PyObject *self, PyObject* args)
 {
 	int img_x, img_y;
 	Py_buffer img_in;
@@ -212,7 +212,7 @@ PyObject *pyfind_scan_border(PyObject *self, PyObject* args)
 	bitmap_in = from_py_buffer(&img_in, img_x, img_y);
 
 	Py_BEGIN_ALLOW_THREADS;
-	frame = pf_find_scan_border(&bitmap_in);
+	frame = pf_find_scan_borders(&bitmap_in);
 	Py_END_ALLOW_THREADS;
 
 	PyBuffer_Release(&img_in);

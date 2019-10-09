@@ -64,7 +64,6 @@ setup(
             'pillowfight._clib', [
                 'src/pillowfight/util.c',
                 'src/pillowfight/_ace.c',
-                'src/pillowfight/_scanborder.c',
                 'src/pillowfight/_blackfilter.c',
                 'src/pillowfight/_blurfilter.c',
                 'src/pillowfight/_border.c',
@@ -75,6 +74,7 @@ setup(
                 'src/pillowfight/_masks.c',
                 'src/pillowfight/_noisefilter.c',
                 'src/pillowfight/_pymod.c',
+                'src/pillowfight/_scanborders.c',
                 'src/pillowfight/_sobel.c',
                 'src/pillowfight/_swt.c',
                 'src/pillowfight/_version.c',

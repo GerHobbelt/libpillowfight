@@ -242,7 +242,7 @@ cropping areas.
 #### Python API
 
 ```py
-frame = pillowfight.find_scan_border(img_in)
+frame = pillowfight.find_scan_borders(img_in)
 ```
 
 
@@ -259,7 +259,7 @@ struct pf_rectangle {
 	struct pf_point b;
 };
 
-struct pf_rectangle pf_find_scan_border(const struct pf_bitmap *img_in);
+struct pf_rectangle pf_find_scan_borders(const struct pf_bitmap *img_in);
 ```
 
 

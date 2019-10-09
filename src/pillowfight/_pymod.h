@@ -10,7 +10,7 @@ PyObject *pygaussian(PyObject *self, PyObject* args);
 PyObject *pygrayfilter(PyObject *self, PyObject* args);
 PyObject *pymasks(PyObject *self, PyObject* args);
 PyObject *pynoisefilter(PyObject *self, PyObject* args);
-PyObject *pyfind_scan_border(PyObject *self, PyObject* args);
+PyObject *pyfind_scan_borders(PyObject *self, PyObject* args);
 PyObject *pysobel(PyObject *self, PyObject* args);
 PyObject *pyswt(PyObject *self, PyObject* args);
 PyObject *pyget_version(PyObject *self, PyObject* args);

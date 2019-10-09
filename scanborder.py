@@ -8,7 +8,7 @@ import PIL.ImageDraw
 import pillowfight
 
 
-def scanborder(img_in, img_out):
+def find_scan_borders(img_in, img_out):
     img_in = PIL.Image.open(img_in)
 
     img = img_in.copy()
@@ -17,7 +17,7 @@ def scanborder(img_in, img_out):
     # img = pillowfight.unpaper_blurfilter(img)
     # img = pillowfight.unpaper_masks(img)
 
-    frame = pillowfight.find_scan_border(img)
+    frame = pillowfight.find_scan_borders(img)
 
     draw = PIL.ImageDraw.Draw(img_in)
     draw.rectangle(
@@ -40,7 +40,7 @@ def scanborder(img_in, img_out):
 
 
 def main():
-    scanborder(sys.argv[1], sys.argv[2])
+    find_scan_borders(sys.argv[1], sys.argv[2])
 
 
 if __name__ == "__main__":
