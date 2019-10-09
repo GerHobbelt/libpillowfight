@@ -1,3 +1,13 @@
+2019/10/09 -- 0.3.0:
+- Add algorithm 'scan_borders': On a scanned image, this algorithm tries to
+  figure out where are the page borders. This algorithm is meant to be an
+  helper for scan cropping (it doesn't work with all scanners).
+- Sobel: remove trailing lines at the left and the top of resulting intensity
+  matrix (and resulting image)
+- SWT: Fix memory leak
+- CMakeLists.txt: add SOVERSION
+- CMakeLists.txt: Use CMAKE_INSTALL_LIBDIR instead of LIBDIR
+
 2018/04/10 -- 0.2.4:
 - Fix build on ARM CPUs
 

@@ -229,8 +229,8 @@ This algorithm does not always work:
   the image before returning it. Unfortunately they often remove most of the
   page borders in the process.
 
-Still, this algorithm can help users of GUI applications by pre-selecting
-cropping areas.
+Still, this algorithm can help users of GUI applications by pre-selecting a
+cropping area.
 
 
 | Input | Output |
