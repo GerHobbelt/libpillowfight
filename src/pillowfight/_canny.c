@@ -93,7 +93,8 @@ static void non_maximum_suppression(
 		},
 	};
 
-	int x, y, p, current_intensity, other_intensity;
+	int x, y, current_intensity, other_intensity;
+	unsigned int p;
 	double angle;
 	int axis_nb;
 

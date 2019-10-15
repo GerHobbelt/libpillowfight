@@ -509,7 +509,8 @@ static struct swt_adjacencies make_adjacencies_list(const struct pf_dbl_matrix *
 	struct swt_adjacencies adjs;
 	struct swt_adjacency *adj_pt;
 	struct swt_adjacency *adj_neighboor;
-	int x, y, i;
+	int x, y;
+	unsigned int i;
 	double val, val_neighboor;
 
 	adjs = init_adjacencies(swt->size.x, swt->size.y);
