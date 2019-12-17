@@ -601,7 +601,7 @@ extern void pf_unpaper_noisefilter(const struct pf_bitmap *in, struct pf_bitmap 
 
 ## Contact
 
-* [Mailing-list](https://github.com/openpaperwork/paperwork/wiki/Contact#mailing-list)
+* [Forum](https://forum.openpaper.work/)
 * [Bug tracker](https://github.com/openpaperwork/libpillowfight/issues/)
 
 
