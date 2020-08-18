@@ -57,7 +57,7 @@ setup(
         'pillowfight',
     ],
     package_dir={
-        'pillowfight': 'src/pillowfight',
+        '': 'src',
     },
     ext_modules=[
         Extension(
