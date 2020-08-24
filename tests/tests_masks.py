@@ -8,8 +8,8 @@ import pillowfight
 
 class TestMasks(unittest.TestCase):
     def test_masks(self):
-        with tempfile.NamedTemporaryFile(suffix='.jpg') as tmpfile:
-            in_img = PIL.Image.open("tests/data/black_border_problem2.jpg")
+        with tempfile.NamedTemporaryFile(suffix='.png') as tmpfile:
+            in_img = PIL.Image.open("tests/data/black_border_problem2.png")
             out_img = pillowfight.unpaper_masks(in_img)
             in_img.close()
 
@@ -20,7 +20,7 @@ class TestMasks(unittest.TestCase):
             out_img = PIL.Image.open(tmpfile.name)
 
         expected_img = PIL.Image.open(
-            "tests/data/black_border_problem2_masks.jpg"
+            "tests/data/black_border_problem2_masks.png"
         )
         self.assertEqual(out_img.tobytes(), expected_img.tobytes())
         expected_img.close()

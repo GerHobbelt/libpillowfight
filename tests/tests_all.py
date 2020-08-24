@@ -8,8 +8,8 @@ import pillowfight
 
 class TestAll(unittest.TestCase):
     def test_all_1(self):
-        with tempfile.NamedTemporaryFile(suffix='.jpg') as tmpfile:
-            in_img = PIL.Image.open("tests/data/black_border_problem.jpg")
+        with tempfile.NamedTemporaryFile(suffix='.png') as tmpfile:
+            in_img = PIL.Image.open("tests/data/black_border_problem.png")
 
             out_img = pillowfight.ace(in_img, seed=0xDEADBEE)
 
@@ -30,14 +30,14 @@ class TestAll(unittest.TestCase):
             out_img = PIL.Image.open(tmpfile.name)
 
         expected_img = PIL.Image.open(
-            "tests/data/black_border_problem_all.jpg"
+            "tests/data/black_border_problem_all.png"
         )
         self.assertEqual(out_img.tobytes(), expected_img.tobytes())
         expected_img.close()
 
     def test_all_2(self):
-        with tempfile.NamedTemporaryFile(suffix='.jpg') as tmpfile:
-            in_img = PIL.Image.open("tests/data/brightness_problem.jpg")
+        with tempfile.NamedTemporaryFile(suffix='.png') as tmpfile:
+            in_img = PIL.Image.open("tests/data/brightness_problem.png")
 
             out_img = pillowfight.ace(in_img, seed=0xBEEDEAD)
 
@@ -58,7 +58,7 @@ class TestAll(unittest.TestCase):
             out_img = PIL.Image.open(tmpfile.name)
 
         expected_img = PIL.Image.open(
-            "tests/data/brightness_problem_all.jpg"
+            "tests/data/brightness_problem_all.png"
         )
         self.assertEqual(out_img.tobytes(), expected_img.tobytes())
         expected_img.close()

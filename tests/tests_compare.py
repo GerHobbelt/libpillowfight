@@ -8,10 +8,10 @@ import pillowfight
 
 class TestCompare(unittest.TestCase):
     def test_compare(self):
-        with tempfile.NamedTemporaryFile(suffix='.jpg') as tmpfile:
-            in_img = PIL.Image.open("tests/data/black_border_problem.jpg")
+        with tempfile.NamedTemporaryFile(suffix='.png') as tmpfile:
+            in_img = PIL.Image.open("tests/data/black_border_problem.png")
             in_img2 = PIL.Image.open(
-                "tests/data/black_border_problem_blackfilter.jpg"
+                "tests/data/black_border_problem_blackfilter.png"
             )
 
             (has_diff, out_img) = pillowfight.compare(in_img, in_img2)
@@ -26,7 +26,7 @@ class TestCompare(unittest.TestCase):
             out_img = PIL.Image.open(tmpfile.name)
 
         expected_img = PIL.Image.open(
-            "tests/data/black_border_problem_diff.jpg"
+            "tests/data/black_border_problem_diff.png"
         )
         self.assertEqual(out_img.tobytes(), expected_img.tobytes())
         expected_img.close()
