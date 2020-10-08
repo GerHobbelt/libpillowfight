@@ -263,11 +263,6 @@ struct pf_rectangle pf_find_scan_borders(const struct pf_bitmap *img_in);
 ```
 
 
-#### Sources
-
-* ["Detecting Text in Natural Scenes with Stroke Width Transform"](http://cmp.felk.cvut.cz/~cernyad2/TextCaptchaPdf/Detecting%20Text%20in%20Natural%20Scenes%20with%20Stroke%20Width%20Transform.pdf) - Boris Epshtein, Eyal Ofek, Yonatan Wexler
-* https://github.com/aperrau/DetectText
-
 ### Canny's edge detection
 
 | Input | Output |
