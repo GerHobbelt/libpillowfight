@@ -1,4 +1,4 @@
-image: debian:stable-slim
+image: debian:buster-slim
 
 check:
   only:
