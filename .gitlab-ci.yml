@@ -4,9 +4,6 @@ check:
   only:
     - branches@World/OpenPaperwork/libpillowfight
     - tags@World/OpenPaperwork/libpillowfight
-  tags:
-    - linux
-    - volatile
   script:
     - apt-get update
     - apt-get install -y -q make
@@ -17,10 +14,6 @@ test:
   only:
     - branches@World/OpenPaperwork/libpillowfight
     - tags@World/OpenPaperwork/libpillowfight
-  tags:
-    - linux
-    - volatile
-    - x86
   script:
     - apt-get update
     - apt-get install -y -q make
