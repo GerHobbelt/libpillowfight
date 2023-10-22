@@ -1,5 +1,7 @@
 #include <pillowfight/pillowfight.h>
 
+#ifndef NO_PYTHON
+
 #include "_pymod.h"
 
 static PyMethodDef clib_methods[] = {
@@ -42,4 +44,6 @@ PyMODINIT_FUNC PyInit__clib(void)
 {
 	return PyModule_Create(&clib_module);
 }
+#endif
+
 #endif
