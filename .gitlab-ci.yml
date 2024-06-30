@@ -1,4 +1,4 @@
-image: debian:buster-slim
+image: debian:bookworm-slim
 
 check:
   only:
