@@ -78,7 +78,7 @@ output_img = pillowfight.ace(input_img)
 
 ```sh
 make check  # will check style
-make test  # will run the tests (will require tox)
+make test  # will run the tests (will require pytest)
 ```
 
 Test reference images are made on amd64. They should match also on i386.

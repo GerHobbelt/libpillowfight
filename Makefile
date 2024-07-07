@@ -39,7 +39,7 @@ check:
 # 	pydocstyle src
 
 test: build_py
-	tox
+	pytest -xv tests
 
 linux_exe:
 
