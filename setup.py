@@ -90,5 +90,4 @@ setup(
     install_requires=[
         "Pillow",
     ],
-    setup_requires=['nose>=1.0'],
 )

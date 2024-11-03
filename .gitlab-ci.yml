@@ -1,4 +1,4 @@
-image: debian:buster-slim
+image: debian:bookworm-slim
 
 check:
   only:
@@ -7,7 +7,7 @@ check:
   script:
     - apt-get update
     - apt-get install -y -q make
-    - apt-get install -y -q pycodestyle flake8 python3-flake8 tox
+    - apt-get install -y -q pycodestyle flake8 python3-flake8
     - make check
 
 test:
@@ -16,7 +16,17 @@ test:
     - tags@World/OpenPaperwork/libpillowfight
   script:
     - apt-get update
-    - apt-get install -y -q make
-    - apt-get install -y -q python3-dev build-essential gcc tox
-    - apt-get install -y -q zlib1g-dev libjpeg-dev
+    - apt-get install -y -q
+        build-essential
+        gcc
+        libjpeg-dev
+        make
+        python3-dev
+        python3-pip
+        python3-virtualenv
+        zlib1g-dev
+    - virtualenv /tmp/venv
+    - source /tmp/venv/bin/activate
+    - pip install pytest
+    - make install_py
     - make test
