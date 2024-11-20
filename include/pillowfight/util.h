@@ -21,7 +21,7 @@
 #define PF_WINDOWS
 #endif
 
-#ifdef PF_WINDOWS
+#ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES
 #endif
 #include <float.h>
