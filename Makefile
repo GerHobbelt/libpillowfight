@@ -23,9 +23,7 @@ build/Makefile:
 	(cd build && cmake ${CMAKE_OPTS} ..)
 
 ${VERSION_FILE}:
-	echo -n "#define INTERNAL_PILLOWFIGHT_VERSION \"" >| $@
-	echo -n $(shell git describe --always) >> $@
-	echo "\"" >> $@
+	echo "#define INTERNAL_PILLOWFIGHT_VERSION \"$(shell git describe --always)\"" >| $@
 
 version: ${VERSION_FILE}
 
