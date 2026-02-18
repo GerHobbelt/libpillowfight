@@ -43,14 +43,13 @@ setup(
     ),
     classifiers=[
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "Operating System :: POSIX :: Linux",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.5",
         "Topic :: Multimedia :: Graphics :: Graphics Conversion",
     ],
-    license="GPLv2",
+    license="GPL-2.0-only",
     author="Jerome Flesch",
     author_email="jflesch@openpaper.work",
     packages=[
